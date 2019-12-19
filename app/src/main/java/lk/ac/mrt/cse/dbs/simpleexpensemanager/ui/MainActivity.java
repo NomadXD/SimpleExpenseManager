@@ -81,15 +81,18 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         /***  Begin generating dummy data for In-Memory implementation  ***/
         //expenseManager = new InMemoryDemoExpenseManager();
         expenseManager = new PersistentDemoExpenseManager(databaseManager);
+        Log.d("xxxxxxxxxxxxxxx",expenseManager.getAccountNumbersList().toString());
         /*** END ***/
         Log.d("ERRRRRR","XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        expenseManager.addAccount("12345","sgfbhfhfb","vdavvdvd",25.6);
+//        expenseManager.addAccount("12345","sgfbhfhfb","vdavvdvd",25.6);
         Log.d("ERRRRRR",">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 

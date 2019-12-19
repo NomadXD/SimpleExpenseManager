@@ -3,6 +3,7 @@ package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class PersistentAccountDAO implements AccountDAO {
         Cursor accountNumbers = db.query(this.databaseManager.getTableNameTwo(),columns,null,null,null,null,null);
 
         while(accountNumbers.moveToNext()) {
+            Log.d("QQQQQQQQQQQQQQQ",accountNumbers.getString(accountNumbers.getColumnIndex(databaseManager.getColumnAccountNumber())));
             accountNumberList.add(accountNumbers.getString(accountNumbers.getColumnIndex(databaseManager.getColumnAccountNumber()))); //add the item
         }
 
@@ -68,6 +70,25 @@ public class PersistentAccountDAO implements AccountDAO {
 
     @Override
     public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException {
+        SQLiteDatabase db = this.databaseManager.getWritableDatabase();
+        String[] colums = {this.databaseManager.getColumnInitialBalance()};
+        Cursor cursor = db.rawQuery("SELECT initial_balance FROM account_detail WHERE account_number=?", new String[] {accountNo + ""});
+        String balance = cursor.toString();
+        Double val = Double.parseDouble(balance);
+        switch (expenseType) {
+            case EXPENSE:
+                val = val - amount;
+                break;
+            case INCOME:
+                val = val + amount;
+                break;
+        }
+
+        ContentValues cv = new ContentValues();
+        cv.put(databaseManager.getColumnInitialBalance(),val);
+        db.update(databaseManager.getTableNameTwo(), cv, "account_number = ?", new String[]{accountNo});
+
+
 
     }
 }

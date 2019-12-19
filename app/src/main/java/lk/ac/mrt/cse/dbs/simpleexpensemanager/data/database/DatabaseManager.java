@@ -36,7 +36,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sql1 = "CREATE TABLE "+TABLE_NAME_TWO+" (\n"+
-                "    " + COLUMN_ACCOUNT_NUMBER + " STRING NOT NULL,\n" +
+                "    " + COLUMN_ACCOUNT_NUMBER + " STRING NOT NULL CONSTRAINT account_pk PRIMARY KEY,\n" +
                 "    " + COLUMN_BANK_NAME + " VARCHAR(15) NOT NULL,\n" +
                 "    " + COLUMN_ACCOUNT_HOLDER + " DATETIME NOT NULL,\n" +
                 "    " + COLUMN_INITIAL_BALANCE + " DOUBLE NOT NULL\n" +
@@ -45,7 +45,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 
         String sql2 = "CREATE TABLE " + TABLE_NAME_ONE + " (\n" +
-                "    " + COLUMN_ACCOUNT_NUMBER + " STRING NOT NULL CONSTRAINT account_pk PRIMARY KEY,\n" +
+                "    " + COLUMN_ACCOUNT_NUMBER + " STRING NOT NULL,\n" +
                 "    " + COLUMN_EXPENSE_TYPE + " VARCHAR(15) NOT NULL,\n" +
                 "    " + COLUMN_AMOUNT + " VARCHAR(15) NOT NULL,\n" +
                 "    " + COLUMN_DATE + " DATETIME NOT NULL,\n" +
@@ -54,20 +54,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
 
 
-        Log.d("Inside onCreate","YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-
-
         try {
             db.execSQL(sql1);
             db.execSQL(sql2);
-            Log.d("In try","TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
         }catch (Exception e){
             Log.d("Errrrrrrrrrorrrrrrrrr",e.toString());
         }
 
 
-
-        Log.d("ADebugTag", "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
     }
 
