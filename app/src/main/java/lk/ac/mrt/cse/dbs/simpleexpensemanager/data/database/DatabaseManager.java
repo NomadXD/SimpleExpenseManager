@@ -88,6 +88,63 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
 
+    public boolean addEmployee(String accountId,String bank,String accountHolder,String balance){
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ACCOUNT_NUMBER,accountId);
+        contentValues.put(COLUMN_BANK_NAME,bank);
+        contentValues.put(COLUMN_ACCOUNT_HOLDER,accountHolder);
+        contentValues.put(COLUMN_INITIAL_BALANCE,balance);
+
+        SQLiteDatabase db = getWritableDatabase();
+        return db.insert(TABLE_NAME_TWO,null,contentValues) != -1;
 
 
+    }
+
+
+
+    public static String getDatabase() {
+        return DATABASE_NAME;
+    }
+
+    public static int getDatabaseVersion() {
+        return DATABASE_VERSION;
+    }
+
+    public static String getTableNameOne() {
+        return TABLE_NAME_ONE;
+    }
+
+    public static String getColumnAccountNumber() {
+        return COLUMN_ACCOUNT_NUMBER;
+    }
+
+    public static String getColumnExpenseType() {
+        return COLUMN_EXPENSE_TYPE;
+    }
+
+    public static String getColumnAmount() {
+        return COLUMN_AMOUNT;
+    }
+
+    public static String getColumnDate() {
+        return COLUMN_DATE;
+    }
+
+    public static String getTableNameTwo() {
+        return TABLE_NAME_TWO;
+    }
+
+    public static String getColumnBankName() {
+        return COLUMN_BANK_NAME;
+    }
+
+    public static String getColumnAccountHolder() {
+        return COLUMN_ACCOUNT_HOLDER;
+    }
+
+    public static String getColumnInitialBalance() {
+        return COLUMN_INITIAL_BALANCE;
+    }
 }
