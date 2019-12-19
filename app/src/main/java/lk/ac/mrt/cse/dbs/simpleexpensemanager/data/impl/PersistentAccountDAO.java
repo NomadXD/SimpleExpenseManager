@@ -1,8 +1,10 @@
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
@@ -21,7 +23,18 @@ public class PersistentAccountDAO implements AccountDAO {
 
     @Override
     public List<String> getAccountNumbersList() {
-        return null;
+        List<String> accountNumberList = new ArrayList<>();
+        String[] columns = {this.databaseManager.getColumnAccountNumber()};
+        SQLiteDatabase db = this.databaseManager.getWritableDatabase();
+        Cursor accountNumbers = db.query(this.databaseManager.getTableNameTwo(),columns,null,null,null,null,null);
+
+        while(accountNumbers.moveToNext()) {
+            accountNumberList.add(accountNumbers.getString(accountNumbers.getColumnIndex(databaseManager.getColumnAccountNumber()))); //add the item
+        }
+
+        return accountNumberList;
+
+
     }
 
     @Override
@@ -42,7 +55,7 @@ public class PersistentAccountDAO implements AccountDAO {
         contentValues.put(databaseManager.getColumnAccountHolder(),account.getAccountHolderName());
         contentValues.put(databaseManager.getColumnInitialBalance(),account.getBalance());
         SQLiteDatabase db = this.databaseManager.getWritableDatabase();
-        db.insert(databaseManager.getTableNameOne(),null,contentValues);
+        db.insert(databaseManager.getTableNameTwo(),null,contentValues);
 
     }
 
