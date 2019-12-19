@@ -1,4 +1,4 @@
-#Wed Dec 18 21:08:21 IST 2019
+#Thu Dec 19 09:20:25 IST 2019
 base.0=/home/lahiru/Documents/projects/Mobile/Android/SimpleExpenseManager/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
